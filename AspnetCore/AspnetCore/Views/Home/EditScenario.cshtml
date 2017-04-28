@@ -1,0 +1,61 @@
+﻿@model AspnetCore.Models.Scenario
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditScenario</title>
+</head>
+<body>
+    <div> 
+        <form method="post">
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                <div>
+                    <label for="TestApp">TestApp</label>
+                    <input type="text" name="TestApp" value="@Model.Testapp" />
+                    @Html.ValidationMessageFor(model => model.Testapp, "", new { @class = "text-danger" })
+                </div>
+                <div>
+                    <label for="CellName">CellName</label>
+                    @Html.DropDownList("CellId", String.Empty)
+                    @Html.ValidationMessageFor(model => model.CellId, "", new { @class = "text-danger" })
+                </div>
+                <div>
+                    <label for="ServerOS">ServerOS</label>
+                    <input type="text" name="ServerOS" value="@Model.ServerOS" />
+                    @Html.ValidationMessageFor(model => model.ServerOS, "", new { @class = "text-danger" })
+                </div>
+                <div>
+                    <label for="WebServer">WebServer</label>
+                    <input type="text" name="WebServer" value="@Model.WebServer" />
+                    @Html.ValidationMessageFor(model => model.WebServer, "", new { @class = "text-danger" })
+                </div>
+                <div>
+                    <label for="DotnetVersion">DotnetVersion</label>
+                    <input type="text" name="DotnetVersion" value="@Model.DotnetVersion" />
+                    @Html.ValidationMessageFor(model => model.DotnetVersion, "", new { @class = "text-danger" })
+                </div>
+                <div>
+                    <label for="PerformanceBranch">PerformanceBranch</label>
+                    <input type="text" name="PerformanceBranch" value="@Model.PerformanceBranch" />
+                    @Html.ValidationMessageFor(model => model.PerformanceBranch, "", new { @class = "text-danger" })
+                </div>
+                <div>
+                    <label for="MusicStoreBranch">MusicStoreBranch</label>
+                    <input type="text" name="MusicStoreBranch" value="@Model.MusicStoreBranch" />
+                    @Html.ValidationMessageFor(model => model.MusicStoreBranch, "", new { @class = "text-danger" })
+                </div>
+                <input type="hidden" name="ScenarioId" value="@Model.ScenarioId" />
+                <input type="hidden" name="ScenarioName" value="@Model.ScenarioName" />
+                <div><input type="submit" name="buttonSubmit" value="Save" /></div>
+            </div>
+</form>
+    </div>
+</body>
+</html>

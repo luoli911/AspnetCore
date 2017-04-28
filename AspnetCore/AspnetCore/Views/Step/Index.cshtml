@@ -1,0 +1,81 @@
+﻿@using AspnetCore.Models
+@model dynamic
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Index</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+    
+</head>
+<body>
+        <div>
+            <a href="~/Step/Create">Create New Step</a>
+            <table>
+                <tr>
+                    <th>State</th>
+                    <th>StepId</th>
+                    <th>StepName</th>
+                    <th>StepValue</th>
+                    <th>Action</th>
+                </tr>
+
+                @foreach (StepQueue item in Model.StepQueues)
+            {
+                    <tr>
+             
+
+                        <td>@item.State</td>
+                        <td>@item.StepId</td>
+                        <td>@item.StepName</td>
+                        <td>@item.StepValue</td>
+                        <td><a href="~/Step/Edit?id=@item.QueueId">Edit</a> | <a href="~/Step/Delete?id=@item.QueueId">Delete</a></td>
+                    </tr>
+                }
+            </table>
+        </div>
+        
+    <form method="post" action="~/Step/Save">
+        <div>
+            <p>
+                <label>ServerName</label>
+                <input type="text" name="ServerName" value="@Model.Step.ServerName" />
+            </p>
+            <p>
+                <label>ClientName</label>
+                <input type="text" name="ClientName" value="@Model.Step.ClientName" />
+            </p>
+            <p>
+                <label for="DotnetVersion">DotnetVersion</label>
+                <input type="text" name="DotnetVersion" value="@Model.Step.DotnetVersion" />
+            </p>
+            <p>
+                <label for="TestappName">TestappName</label>
+                <input type="text" name="TestappName" value="@Model.Step.TestappName" />
+            </p>
+            <p>
+                <label for="WebServer">WebServer</label>
+                <input type="text" name="WebServer" value="@Model.Step.WebServer" />
+            </p>
+            <p>
+                <label for="ServerOS">ServerOS</label>
+                <input type="text" name="ServerOS" value="@Model.Step.ServerOS" />
+            </p>
+        </div>
+        <div>
+            <input type="hidden" name="StepId" value="@Model.Step.StepId" />
+            <input type="hidden" name="StepFileId" value="@Model.Step.StepFileId" />
+            <input type="submit" id="btnSave" value="Save Step File" />
+        </div>
+        </form>
+
+        <a href="~/Home/Index">Back</a>
+
+</body>
+</html>

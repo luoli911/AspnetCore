@@ -1,0 +1,43 @@
+﻿@model AspnetCore.Models.StepQueue
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+    <div> 
+        <form method="post">
+            <div>
+                <label for="StepId">StepId</label>
+                <input type="text" name="StepId" value="@Model.StepId" />
+            </div>
+            <div>
+                <label for="StepName">StepName</label>
+                <input type="text" name="StepName" value="@Model.StepName" />
+            </div>
+            <div>
+                <label for="StepValue">StepValue</label>
+                <input type="text" name="StepValue" value="@Model.StepValue" />
+            </div>
+            <div>
+                <label for="StepFileId">StepFileId</label>
+                <input type="text" name="StepFileId" value="@Model.StepFileId" />
+            </div>
+            <div>
+                <label for="State">State</label>
+                <input type="text" name="State" value="@Model.State" />
+            </div>
+            <input type="hidden" name="QueueId" value="@Model.QueueId" />
+            <div><input type="submit" name="buttonSubmit" value="Save" />
+                <a href="javascript:void(0);" onclick="history.go(-1);">Back</a></div>
+        </form>
+    </div>
+</body>
+</html>

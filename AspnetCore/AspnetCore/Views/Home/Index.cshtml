@@ -1,0 +1,189 @@
+﻿@using AspnetCore.Models
+@model dynamic
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head> 
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".RunRemoteBtn").click(function () {
+
+                var IdText = $(this).closest("tr").find(".RunIdText").text();
+                var CellText = $(this).closest("tr").find(".CellNameText").text();
+                var ServerText = $(this).closest("tr").find(".ServerOSText").text();
+                var RunStateHtml = $(this).closest("tr").find(".RunState");
+
+                $.ajax({
+                    type: "POST",
+                    //url: "/RunRemoteService.asmx/RunScript",
+                    url: "/Home/RunRemote/",
+                    data: JSON.stringify({ id: IdText }),
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function(msg) {
+                        alert("Success");
+                   },
+                    failure: function (response) {
+                    alert(response.responseText);
+                    },
+                    error: function (response) {
+                    alert(response.responseText);
+                }
+                });
+
+            });
+        });
+        //$(".MonitorLogBtn").click(function () {
+        //    var IdText = $(this).closest("tr").find(".RunIdText").text();
+        //    $.ajax({
+        //        type: "POST",
+        //        //url: "/RunRemoteService.asmx/RunScript",
+        //        url: "/Home/MonitorLog/",
+        //        //data: '{CellName:"' + CellText + '",ServerOS:"' + ServerText + '"}',
+        //        data: JSON.stringify({ id: IdText }),
+        //        contentType: "application/json;charset=utf-8",
+        //        dataType: "json",
+        //        success: function (msg) {
+        //            alert("Success");
+        //            //RunStateHtml.text("InProcess");
+        //        },
+        //        failure: function (response) {
+        //            alert(response.responseText);
+        //        },
+        //        error: function (response) {
+        //            alert(response.responseText);
+        //        }
+        //    });
+
+        //});
+    </script>
+    <title>Index</title>
+</head>
+<body>
+
+    <div> 
+        <h1>Scenario</h1>
+        <a href="~/Home/CreateScenario" >Create New Scenario</a>
+        <table>
+            <tr>
+                <th>Testapp</th>
+                <th>Cell</th>
+                <th>ServerOS</th>
+                <th>WebServer</th>
+                <th>DotnetVersion</th>
+                <th>PerformanceBranch</th>
+                <th>MusicStoreBranch</th>
+                <th>Action</th>
+            </tr>
+            @foreach (Scenario scenario in Model.Scenarios)
+            {
+                <tr>
+                    <td>@scenario.Testapp</td>
+                    <td>@scenario.Cell.CellName</td>
+                    <td>@scenario.ServerOS</td>
+                    <td>@scenario.WebServer</td>
+                    <td>@scenario.DotnetVersion</td>
+                    <td>@scenario.PerformanceBranch</td>
+                    <td>@scenario.MusicStoreBranch</td>
+                    <td><a href="~/Home/EditScenario?id=@scenario.ScenarioId">Edit</a> | <a href="~/Home/DeleteScenario?id=@scenario.ScenarioId">Delete</a></td>
+                </tr>
+            }
+            
+        </table>
+    </div>
+    <div>
+        <h1>Step File</h1>
+        <a href="~/Home/CreateStepFile">Create New StepFile</a>
+        <table>
+            <tr>
+                <th>FileName</th>
+                <th>FilePath</th>
+                <th>IsTemplate</th>
+                <th>Action</th>
+            </tr>
+            @foreach (StepFile stepfile in Model.StepFiles)
+            {
+                <tr>
+                    <td><a href="~/Step/Index?id=@stepfile.Id">@stepfile.FileName</a> </td>
+                    <td>@stepfile.FilePath</td>
+                    <td>@stepfile.IsTemplate</td>
+                    <td><a href="~/Home/EditStepFile?id=@stepfile.Id">Edit</a> | <a href="~/Home/DeleteStepFile?id=@stepfile.Id">Delete</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div>
+        <h1>Global File</h1>
+        <a href="~/Home/CreateGlobalFile">Create New GlobalFile</a>
+        <table>
+            <tr>
+                <th>FileName</th>
+                <th>FilePath</th>
+                <th>IsTemplate</th>
+                <th>Action</th>
+            </tr>
+            @foreach (GlobalFile globalfile in Model.GlobalFiles)
+            {
+                <tr>
+                    <td><a href="~/Global/Index?id=@globalfile.Id">@globalfile.FileName</a> </td>
+                    <td>@globalfile.FilePath</td>
+                    <td>@globalfile.IsTemplate</td>
+                    <td><a href="~/Home/EditGlobalFile?id=@globalfile.Id">Edit</a> | <a href="~/Home/DeleteGlobalFile?id=@globalfile.Id">Delete</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div>
+        <h1>Test Run</h1>
+        <a href="~/Home/CreateTestRun">Add New Run</a>
+        <table id="TestRun">
+            <tr>
+                <th>RunName</th>
+                <th>Scenario</th>
+                <th>CellName</th>
+                <th>ServerOS</th>
+                <th>StartTime</th>
+                <th>State</th>
+                <th>Configure</th>
+                <th>Monitor</th>
+                <th>RunRemote</th>
+                <th>Action</th>
+            </tr>
+            @foreach (TestRun testrun in Model.TestRuns)
+            {
+                <tr>
+                    <td>@testrun.RunName</td>
+                    <td class="RunIdText" hidden="hidden">@testrun.RunId</td>
+                        @foreach (Scenario scenario in Model.Scenarios)
+                        {
+                            if (scenario.ScenarioId == @testrun.ScenarioId)
+                            {
+                                
+                                <td>@scenario.Testapp -- @scenario.ServerOS -- @scenario.WebServer</td>
+                                <td class="CellNameText">@scenario.Cell.CellName</td>
+                                <td class="ServerOSText">@scenario.ServerOS</td>
+                            }
+                        }
+                    <td>@testrun.StartTime</td>
+                    <td class="RunState">@testrun.State</td>
+                    <td><input type="button" class="ConfigBtn" value="Configure" /> </td>
+                    <td><input type="button" class="MonitorLogBtn" value="Monitor" /> </td>
+                    <td><input type="button" class="RunRemoteBtn" value="Run"/> </td>
+                    <td><a href="~/Home/EditTestRun?id=@testrun.RunId">Edit</a> | <a href="~/Home/DeleteTestRun?id=@testrun.RunId">Delete</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div>
+        <h1>Results</h1>
+        <a href="~/Results/ReliabilityTest">Reliability Results</a><br/>
+        <a href="~/Results/PerformanceTest">Performance Results</a>
+    </div>
+</body>
+</html>

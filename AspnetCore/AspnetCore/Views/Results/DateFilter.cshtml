@@ -1,0 +1,52 @@
+﻿@model IEnumerable<AspnetCore.Models.TestRun>
+
+<div>
+    <form method="get">
+        <p>
+            Find by Date:
+            <input type="submit" value="Search" />
+        </p>
+    </form>
+        <table class="table">
+            <tr>
+                <th>Date</th>
+                <th>Cell</th>
+                <th>Branch</th>
+                <th>Scenario</th>
+                <th>Reliability</th>
+                <th>Throughput</th>
+                <th>MedianLatency</th>
+                <th>P95Latency</th>
+                <th>Testapp</th>
+                <th>Machine</th>
+                <th>ARM</th>
+                <th>ServerOS</th>
+                <th>WebServer</th>
+                <th>Duration</th>
+                <th>VirtualClients</th>
+            </tr>
+            
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.StartTime</td>
+                        <td>@item.Scenario.Cell.CellName</td>
+                        <td>@item.Scenario.PerformanceBranch</td>
+                        <td>@item.Scenario.ScenarioName</td>
+                        <td>@item.ReliabilityResult.Reliability</td>
+                        <td>@item.ReliabilityResult.Throughput</td>
+                        <td>@item.ReliabilityResult.MedianLatency</td>
+                        <td>@item.ReliabilityResult.P95Latency</td>
+                        <td>@item.Scenario.Testapp</td>
+                        <td>@item.Scenario.Cell.Machine</td>
+                        <td>@item.Scenario.Cell.ARM</td>
+                        <td>@item.Scenario.ServerOS</td>
+                        <td>@item.Scenario.WebServer</td>
+                        <td>@item.Scenario.Duration</td>
+                        <td>@item.Scenario.VirtualClients</td>
+                    </tr>
+                    
+        </table>
+    
+    
+</div>

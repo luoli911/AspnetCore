@@ -1,0 +1,20 @@
+﻿@using System.Data
+@model IEnumerable<AspnetCore.Models.TestRun>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ReliabilityTest</title>
+</head>
+<body>
+    @Html.Partial("DateFilter")
+    
+    @Html.Partial("UploadReliabilityResults",new DataTable { })
+    
+</body>
+</html>

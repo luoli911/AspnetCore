@@ -1,0 +1,56 @@
+﻿@using AspnetCore.Models
+@model dynamic
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Index</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+
+</head>
+<body>
+ 
+    <div>
+        <a href="~/Global/Create">Create New Global Config</a>
+        <table>
+            <tr>
+                <th>State</th>
+                <th>GlobalFileId</th>
+                <th>GlobalName</th>
+                <th>GlobalValue</th>
+                <th>Action</th>
+            </tr>
+
+            @foreach (GlobalQueue item in Model.GlobalQueues)
+            {
+                <tr>
+                    @*<td><a href="~/Home/EditScenario?id=@scenario.ScenarioId">Edit</a></td>*@
+
+                    <td>@item.State</td>
+                    <td>@item.GlobalFileId</td>
+                    <td>@item.GlobalName</td>
+                    <td>@item.GlobalValue</td>
+                    @*<td><a onclick="Update()">Edit</a>|<a onclick="Delete()">Delete</a></td>*@
+                    <td><a href="~/Global/Edit?id=@item.QueueId">Edit</a> | <a href="~/Global/Delete?id=@item.QueueId">Delete</a></td>
+                    @*<td><a href="~/DeleteScenario?id=@scenario.ScenarioId">Delete</a></td>*@
+                </tr>
+            }
+        </table>
+    </div>
+   
+    <form method="post" action="~/Global/SaveGlobalFile?id=@ViewData["GlobalfileId"]">
+        <div>
+            <input type="submit" id="btnSave" value="Save Global File" />
+        </div>
+    </form>
+
+    <a href="~/Home/Index">Back</a>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+﻿@model AspnetCore.Models.StepFile
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DeleteStepFile</title>
+</head>
+<body>
+    <div>
+        <h1>Delete a StepFile</h1>
+        <div>
+            <label for="FileName">FileName</label>
+            <input type="text" name="FileName" value="@Model.FileName" />
+        </div>
+        <div>
+            <label for="FilePath">FilePath</label>
+            <input type="text" name="FilePath" value="@Model.FilePath" />
+        </div>
+        <div>
+            <label for="IsTemplate">IsTemplate</label>
+            <input type="text" name="IsTemplate" value="@Model.IsTemplate" />
+        </div>
+        <div>
+            <label for="TemplateId">TemplateId</label>
+            <input type="text" name="TemplateId" value="@Model.TemplateId" />
+        </div>
+        <input type="hidden" name="StepFileId" value="@Model.Id" />
+        <form method="post">
+            <div><input type="submit" name="buttonDelelte" value="Delelte" /></div>
+        </form>
+    </div>
+</body>
+</html>

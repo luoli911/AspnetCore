@@ -1,0 +1,50 @@
+﻿@model AspnetCore.Models.Scenario
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DeleteScenario</title>
+</head>
+<body>
+    <div> 
+        <h1>Delete a Scenario</h1>
+            <div>
+                <label for="TestApp">TestApp</label>
+                <input type="text" name="TestApp" value="@Model.Testapp" />
+            </div>
+            <div>
+                <label for="CellName">CellName</label>
+                <input type="text" name="CellName" value="@Model.Cell.CellName" />
+            </div>
+            <div>
+                <label for="ServerOS">ServerOS</label>
+                <input type="text" name="ServerOS" value="@Model.ServerOS" />
+            </div>
+            <div>
+                <label for="WebServer">WebServer</label>
+                <input type="text" name="WebServer" value="@Model.WebServer" />
+            </div>
+            <div>
+                <label for="DotnetVersion">DotnetVersion</label>
+                <input type="text" name="DotnetVersion" value="@Model.DotnetVersion" />
+            </div>
+            <div>
+                <label for="PerformanceBranch">PerformanceBranch</label>
+                <input type="text" name="PerformanceBranch" value="@Model.PerformanceBranch" />
+            </div>
+            <div>
+                <label for="MusicStoreBranch">MusicStoreBranch</label>
+                <input type="text" name="MusicStoreBranch" value="@Model.MusicStoreBranch" />
+            </div>
+            <input type="hidden" name="ScenarioId" value="@Model.ScenarioId" />
+        <form method="post">
+            <div><input type="submit" name="buttonDelelte" value="Delelte" /></div>
+        </form>
+    </div>
+</body>
+</html>
